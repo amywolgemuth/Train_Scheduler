@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TRAIN SCHEDULER</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- LINK TO FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <!-- Jumbotron -->
+        <div class="jumbotron">
+            <h1 class="text-center">TRAIN SCHEDULER</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Train Name</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Frequency (min)</th>
+                            <th scope="col">Next Arrival</th>
+                            <th scope="col">Minutes Away</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Blue Ash Train</th>
+                            <td>Blue Ash, Ohio</td>
+                            <td>10</td>
+                            <td>9:40</td>
+                            <td>5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form>
+                    <div class="form-group">
+                        <label for="trainNameInput">Train Name</label>
+                        <input type="name" class="form-control" id=trainNameInput"
+                            placeholder="Franklin Train">
+                    </div>
+                </form>
+                <form>
+                        <div class="form-group">
+                            <label for="destinationInput">Destination</label>
+                            <input type="place" class="form-control" id="destinationInput"
+                                placeholder="Franklin, TN">
+                        </div>
+                    </form>
+                    <form>
+                            <div class="form-group">
+                                <label for="firstTrainTimeInput">First Train Time (HH:mm - military time)</label>
+                                <input type="time" class="form-control" id="firstTrainTimeInput"
+                                    placeholder="14:15">
+                            </div>
+                        </form>
+                        <form>
+                                <div class="form-group">
+                                    <label for="frequencyInput">Frequency (min)</label>
+                                    <input type="minutes" class="form-control" id="frequencyInput"
+                                        placeholder="30">
+                                </div>
+                            </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- link to external javaScript file -->
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+
+    <!-- link to external javaScript file -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+
+</html>
