@@ -1,0 +1,8 @@
+.jumbotron {
+    background: linear-gradient(to bottom right,rgba(91, 223, 51, 0.664), rgba(21, 77, 5, 0.664));
+}
+.text-center {
+    color: white;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 60px;
+    }
