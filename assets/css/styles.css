@@ -6,3 +6,10 @@
     font-family: 'Alegreya Sans', sans-serif;
     font-size: 60px;
     }
+
+
+    #train-table th,
+    td {
+      display: inline-block;
+      width: 16.575%;
+    }

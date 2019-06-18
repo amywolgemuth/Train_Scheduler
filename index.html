@@ -7,25 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TRAIN SCHEDULER</title>
 
+
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ 
 
     <!-- link to external css files and fonts -->
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/styles.css" />
     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:900" rel="stylesheet">
 
-    <!-- LINK TO FIREBASE -->
     <!-- Firebase Reference -->
-    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-    <!-- <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
 
     <!-- Moment.js Reference -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 
@@ -40,7 +39,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <table class="table table-striped">
+                <table class="table table-striped" id="train-table"</table>
                     <thead>
                         <tr>
                             <th scope="col">Train Name</th>
@@ -52,11 +51,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">Blue Ash Train</th>
-                            <td>Blue Ash, Ohio</td>
-                            <td>10</td>
-                            <td>9:40</td>
-                            <td>5</td>
+                            <th scope="row" id="train-row">Blue Ash Train</th>
+                            <td id="destination-row">Blue Ash, Ohio</td>
+                            <td id="frequency-row">10</td>
+                            <td id="next-time-row">9:40</td>
+                            <td id="time-till-next-train-row">5</td>
                         </tr>
                     </tbody>
                 </table>
@@ -70,11 +69,13 @@
                 <form>
                     <div class="form-group">
                         <label for="trainNameInput">Train Name</label>
-                        <input type="aName" class="form-control" id="trainNameInput" placeholder="Franklin Train"required>
+                        <input type="aName" class="form-control" id="trainNameInput" placeholder="Franklin Train"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="destinationInput">Destination</label>
-                        <input type="place" class="form-control" id="destinationInput" placeholder="Franklin, TN" required>
+                        <input type="place" class="form-control" id="destinationInput" placeholder="Franklin, TN"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="firstTrainTimeInput">First Train Time (HH:mm - military time)</label>
@@ -82,7 +83,7 @@
                     </div>
                     <div class="form-group">
                         <label for="frequencyInput">Frequency (min)</label>
-                        <input type="text" class="form-control" id="frequencyInput" placeholder="30"required>
+                        <input type="text" class="form-control" id="frequencyInput" placeholder="30" required>
                     </div>
                     <button class="btn btn-primary float-right" id="add-train-btn">Submit</button>
                 </form>
@@ -92,11 +93,7 @@
 
 
     <!-- link to external javaScript file -->
-    <script type="text/javascript" src="assets/javascript/app.js"></script>
-
-    <!-- link to external javaScript file -->
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-
+    <script src="assets/javascript/app.js"></script>
 
 </body>
 
