@@ -17,28 +17,38 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-var database = firebase.database();
+var trainData = firebase.database();
 
 // Button for adding trains
 $("#add-train-btn").on("click", function (event) {
   event.preventDefault();
 
   // Grabs user input
-  var trainName = $("#trainNameInput").val();
-  var destination = $("#destinationInput").val();
-  var firstTrainTime = $("#firstTrainTimeInput").val();
-  var frequency = $("#frequencyInput").val();
+  var trainName = $("#trainNameInput")
+    .val();
+  var destination = $("#destinationInput")
+    .val();
+  var firstTrain = $("#firstTrainTimeInput")
+    .val();
+  var frequency = $("#frequencyInput")
+    .val();
 
   //creates local "temporary" object for holding train data
   var newTrain = {
-    tempTrain: trainName,
-    tempDestination: destination,
-    tempFirstTrainTime: firstTrainTime,
-    tempFrequency: frequency
+    name: trainName,
+    destination: destination,
+    firstTrain: firstTrain,
+    frequency: frequency
   };
-  
+
   // Uploads train data to the database
-  database.ref().push(newTrain);
+  trainData.ref().push(newTrain);
+
+    // Logs everything to console
+    console.log(newTrain.name);
+    console.log(newTrain.destination);
+    console.log(newTrain.firstTrain);
+    console.log(newTrain.frequency);
 
   alert("New Train successfully added");
 
@@ -50,27 +60,57 @@ $("#add-train-btn").on("click", function (event) {
 });
 
 // 3. Create Firebase event for adding train to the database and a row in the html when a user adds an entry
-database.ref().on("child_added", function (childSnapshot) {
+trainData.ref().on("child_added", function (childSnapshot, prevChildKey) {
   console.log(childSnapshot.val());
 
   // storing the snapshot.val() in a variable for convenience
-    var trainName = childSnapshot.val().tempTrain;
-    var destination = childSnapshot.val().tempDestination;
-    var firstTrainTime = childSnapshot.val().tempFirstTrainTime;
-    var frequency = childSnapshot.val().tempFrequency;
+  var tName = childSnapshot.val().name;
+  var tDestination = childSnapshot.val().destination;
+  var tFrequency = childSnapshot.val().frequency;
+  var tFirstTrain = childSnapshot.val().firstTrain;
+console.log(typeof tFirstTrain);
+  
+// Start calculations here 
+  var timeArr = tFirstTrain.split(":");
+  var trainTime = moment()
+    .hours(timeArr[0])
+    .minutes(timeArr[1]);
+    // moment.min(moment('2016-01-01'), moment('2016-02-01')).format()
+    var maxMoment = moment.min( moment(), moment(trainTime)).format();
+    // debugger;
+  var tMinutes;
+  var tArrival;
 
-    console.log(trainName);
-    console.log(destination);
-    console.log(firstTrainTime);
-    console.log(frequency);
+  // If the first train is later than the current time, sent arrival to the first train time
+  if (maxMoment === trainTime) {
+    tArrival = trainTime.format("hh:mm A");
+    tMinutes = trainTime.diff(moment(), "minutes");
+  } else {
+    // Calculate the minutes until arrival using hardcore math
+    // To calculate the minutes till arrival, take the current time in unix subtract the FirstTrain time
+    // and find the modulus between the difference and the frequency.
+    var differenceTimes = moment().diff(trainTime, "minutes");
+    var tRemainder = differenceTimes % tFrequency;
+    tMinutes = tFrequency - tRemainder;
+    // To calculate the arrival time, add the tMinutes to the current time
+    tArrival = moment()
+      .add(tMinutes, "m")
+      .format("hh:mm A");
+  }
 
-    // Change the HTML to reflect
-    $("#train-table > tbody").append(
-      $("<tr>").append(
-        $("<td>").text(trainName),
-        $("<td>").text(destination),
-        $("<td>").text(frequency),
-        $("<td>").text(firstTrainTime)
-      ))
+  console.log("tMinutes:", tMinutes);
+  console.log("tArrival:", tArrival);
 
+  // End calculations
+
+  // Change the HTML to reflect
+  $("#train-table > tbody").append(
+    $("<tr>").append(
+      $("<td>").text(tName),
+      $("<td>").text(tDestination),
+      $("<td>").text(tFrequency),
+      $("<td>").text(tArrival),
+      $("<td>").text(tMinutes)
+    )
+  );
 });
