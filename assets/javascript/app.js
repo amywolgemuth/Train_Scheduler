@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 // Initialize Firebase
 var firebaseConfig = {
   apiKey: "AIzaSyA-hKRyUoQu4CZ8H6i8zTPG3FMihsi8ZeI",
@@ -25,13 +16,17 @@ $("#add-train-btn").on("click", function (event) {
 
   // Grabs user input
   var trainName = $("#trainNameInput")
-    .val();
+    .val()
+    .trim();
   var destination = $("#destinationInput")
-    .val();
+    .val()
+    .trim();
   var firstTrain = $("#firstTrainTimeInput")
-    .val();
+    .val()
+    .trim();
   var frequency = $("#frequencyInput")
-    .val();
+    .val()
+    .trim();
 
   //creates local "temporary" object for holding train data
   var newTrain = {
@@ -44,11 +39,11 @@ $("#add-train-btn").on("click", function (event) {
   // Uploads train data to the database
   trainData.ref().push(newTrain);
 
-    // Logs everything to console
-    console.log(newTrain.name);
-    console.log(newTrain.destination);
-    console.log(newTrain.firstTrain);
-    console.log(newTrain.frequency);
+  // Logs everything to console
+  console.log(newTrain.name);
+  console.log(newTrain.destination);
+  console.log(newTrain.firstTrain);
+  console.log(newTrain.frequency);
 
   alert("New Train successfully added");
 
@@ -68,16 +63,14 @@ trainData.ref().on("child_added", function (childSnapshot, prevChildKey) {
   var tDestination = childSnapshot.val().destination;
   var tFrequency = childSnapshot.val().frequency;
   var tFirstTrain = childSnapshot.val().firstTrain;
-console.log(typeof tFirstTrain);
-  
-// Start calculations here 
+  console.log(typeof tFirstTrain);
+
+  // Start calculations here 
   var timeArr = tFirstTrain.split(":");
   var trainTime = moment()
     .hours(timeArr[0])
     .minutes(timeArr[1]);
-    // moment.min(moment('2016-01-01'), moment('2016-02-01')).format()
-    var maxMoment = moment.min( moment(), moment(trainTime)).format();
-    // debugger;
+  var maxMoment = moment.max(moment(), moment(trainTime)).format();
   var tMinutes;
   var tArrival;
 
